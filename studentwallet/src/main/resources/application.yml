@@ -1,0 +1,20 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: student-wallet
+  data:
+    cassandra:
+      keyspace-name: student_wallet
+      contact-points: localhost
+      port: 9042
+      local-datacenter: datacenter1
+      schema-action: CREATE_IF_NOT_EXISTS
+
+cors:
+  allowed-origins: http://localhost:4200
+
+jwt:
+  secret: student-wallet-jwt-secret-key-change-in-production-32chars
+  expiration-ms: 86400000
