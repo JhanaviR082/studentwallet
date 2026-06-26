@@ -1,0 +1,35 @@
+<div class="splash" (click)="onTap()" (keyup.enter)="onTap()" tabindex="0" role="button" aria-label="Open wallet">
+  <div class="splash__texture"></div>
+
+  <div class="splash__content">
+    <div class="wallet-container" [@walletState]="walletState">
+      <div class="wallet">
+        <div class="wallet__half wallet__half--left" [class.wallet__half--open]="halvesOpen">
+          <div class="wallet__leather"></div>
+          <div class="wallet__stitch wallet__stitch--vertical"></div>
+          <div class="wallet__card-slot"></div>
+        </div>
+
+        <div class="wallet__spine">
+          <div class="wallet__stitch wallet__stitch--horizontal"></div>
+        </div>
+
+        <div class="wallet__half wallet__half--right" [class.wallet__half--open]="halvesOpen">
+          <div class="wallet__leather"></div>
+          <div class="wallet__stitch wallet__stitch--vertical"></div>
+          <div class="wallet__card-slot wallet__card-slot--gold"></div>
+        </div>
+
+        <div class="wallet__clasp">
+          <span class="wallet__clasp-dot"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="splash__brand" *ngIf="showTagline" [@fadeIn]>
+      <h1>Student Wallet</h1>
+      <p>Your daily budget, negotiated in real-time</p>
+      <span class="splash__hint">Tap to open</span>
+    </div>
+  </div>
+</div>

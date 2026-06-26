@@ -1,0 +1,33 @@
+<div class="auth-page">
+  <div class="auth-card">
+    <mat-icon class="auth-icon">account_balance_wallet</mat-icon>
+    <h1>Create account</h1>
+    <p>Your spending stays private — only you can see it</p>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="displayName" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" />
+        <mat-hint>At least 8 characters</mat-hint>
+      </mat-form-field>
+
+      <p class="error" *ngIf="error">{{ error }}</p>
+
+      <button mat-flat-button class="submit-btn" type="submit" [disabled]="form.invalid || loading">
+        Create Account
+      </button>
+    </form>
+
+    <p class="switch">Already have an account? <a routerLink="/login">Sign in</a></p>
+  </div>
+</div>

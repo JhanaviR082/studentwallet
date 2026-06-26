@@ -1,0 +1,111 @@
+.sms-import {
+  padding: 0.5rem 1.25rem 2rem;
+  background: #141414;
+
+  &__handle {
+    width: 40px;
+    height: 4px;
+    background: #333;
+    border-radius: 2px;
+    margin: 0 auto 1rem;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+
+    mat-icon {
+      color: #d4af37;
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #fff;
+    }
+  }
+
+  &__sub {
+    font-size: 0.75rem;
+    color: #888;
+    margin: 0 0 1rem;
+    line-height: 1.4;
+  }
+
+  &__result {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    border-radius: 10px;
+    margin: 0.75rem 0;
+
+    &.success {
+      background: rgba(0, 200, 83, 0.1);
+      border: 1px solid rgba(0, 200, 83, 0.3);
+
+      mat-icon { color: #00c853; }
+    }
+
+    &.error {
+      background: rgba(255, 23, 68, 0.1);
+      border: 1px solid rgba(255, 23, 68, 0.3);
+
+      mat-icon { color: #ff1744; }
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.8rem;
+      color: #ccc;
+    }
+
+    span {
+      font-size: 0.7rem;
+      color: #888;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+}
+
+.sms-textarea {
+  width: 100%;
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  padding: 0.875rem;
+  resize: vertical;
+  outline: none;
+
+  &:focus {
+    border-color: #d4af37;
+  }
+
+  &::placeholder {
+    color: #555;
+  }
+}
+
+.sample-btn {
+  font-size: 0.7rem !important;
+  color: #888 !important;
+  margin-top: 0.25rem;
+}
+
+.import-btn {
+  background: #d4af37 !important;
+  color: #0a0a0a !important;
+  font-weight: 600 !important;
+}

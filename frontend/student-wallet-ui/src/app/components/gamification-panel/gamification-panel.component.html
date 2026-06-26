@@ -1,0 +1,46 @@
+<section class="gamification" *ngIf="!loading && profile">
+  <div class="gamification__header">
+    <h2>Savings Rewards</h2>
+    <span class="vault-tag">Vault: ₹{{ format(profile.savingsVault) }}</span>
+  </div>
+
+  <div class="savings-summary">
+    <div class="savings-stat">
+      <span class="label">Saved today</span>
+      <span class="value green">₹{{ format(profile.todaySaved) }}</span>
+    </div>
+    <div class="savings-stat">
+      <span class="label">Total saved</span>
+      <span class="value">₹{{ format(profile.totalDailySavings) }}</span>
+    </div>
+    <div class="savings-stat">
+      <span class="label">Streak</span>
+      <span class="value gold">{{ profile.currentStreak }} days</span>
+    </div>
+  </div>
+
+  <div class="badges-grid">
+    <div
+      class="badge-card"
+      *ngFor="let badge of profile.badges"
+      [class.earned]="badge.earned"
+    >
+      <mat-icon>{{ badge.icon }}</mat-icon>
+      <span class="badge-name">{{ badge.name }}</span>
+      <span class="badge-desc">{{ badge.description }}</span>
+      <span class="badge-bonus">+₹{{ badge.bonusAmount }} bonus</span>
+      <mat-progress-bar
+        *ngIf="!badge.earned"
+        mode="determinate"
+        [value]="badgeProgress(badge)"
+      ></mat-progress-bar>
+      <span class="badge-progress" *ngIf="!badge.earned">{{ badge.progress }}/{{ badge.target }}</span>
+      <span class="badge-earned" *ngIf="badge.earned">Unlocked!</span>
+    </div>
+  </div>
+</section>
+
+<div class="gamification-loading" *ngIf="loading">
+  <mat-icon>savings</mat-icon>
+  <span>Loading rewards...</span>
+</div>

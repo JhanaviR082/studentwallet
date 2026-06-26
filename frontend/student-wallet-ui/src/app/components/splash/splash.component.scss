@@ -1,0 +1,208 @@
+.splash {
+  position: fixed;
+  inset: 0;
+  background: #0a0a0a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+  perspective: 1200px;
+  z-index: 1000;
+
+  &__texture {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(212, 175, 55, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 70% 80%, rgba(212, 175, 55, 0.04) 0%, transparent 50%),
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 2px,
+        rgba(255, 255, 255, 0.01) 2px,
+        rgba(255, 255, 255, 0.01) 4px
+      );
+    pointer-events: none;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    z-index: 1;
+  }
+
+  &__brand {
+    text-align: center;
+
+    h1 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #d4af37;
+      margin: 0 0 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    p {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: #888;
+      margin: 0 0 1rem;
+    }
+  }
+
+  &__hint {
+    font-size: 0.75rem;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    animation: pulse 2s ease-in-out infinite;
+  }
+}
+
+.wallet-container {
+  transform-style: preserve-3d;
+}
+
+.wallet {
+  position: relative;
+  width: 220px;
+  height: 140px;
+  display: flex;
+  transform-style: preserve-3d;
+
+  &__half {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.4s ease-in-out;
+
+    &--left {
+      border-radius: 12px 0 0 12px;
+      transform-origin: right center;
+    }
+
+    &--right {
+      border-radius: 0 12px 12px 0;
+      transform-origin: left center;
+    }
+
+    &--open.wallet__half--left {
+      transform: translateX(-60px) rotateY(-15deg);
+    }
+
+    &--open.wallet__half--right {
+      transform: translateX(60px) rotateY(15deg);
+    }
+  }
+
+  &__leather {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(145deg, #1a1410 0%, #2a1f18 40%, #1a1410 100%);
+    border: 1px solid #3d2e1f;
+    box-shadow:
+      inset 0 1px 0 rgba(212, 175, 55, 0.15),
+      0 8px 32px rgba(0, 0, 0, 0.6);
+
+    .wallet__half--left & {
+      border-radius: 12px 0 0 12px;
+    }
+
+    .wallet__half--right & {
+      border-radius: 0 12px 12px 0;
+    }
+  }
+
+  &__stitch {
+    position: absolute;
+    background: repeating-linear-gradient(
+      90deg,
+      #d4af37 0px,
+      #d4af37 4px,
+      transparent 4px,
+      transparent 8px
+    );
+
+    &--vertical {
+      top: 12px;
+      bottom: 12px;
+      width: 2px;
+      right: 8px;
+      background: repeating-linear-gradient(
+        180deg,
+        #d4af37 0px,
+        #d4af37 4px,
+        transparent 4px,
+        transparent 8px
+      );
+    }
+
+    &--horizontal {
+      width: 100%;
+      height: 2px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+
+  &__spine {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    transform: translateX(-50%);
+    background: linear-gradient(180deg, #0a0a0a, #1a1410, #0a0a0a);
+    z-index: 2;
+  }
+
+  &__card-slot {
+    position: absolute;
+    top: 24px;
+    left: 12px;
+    right: 12px;
+    height: 28px;
+    background: rgba(20, 20, 20, 0.8);
+    border-radius: 4px;
+    border: 1px solid #2a2a2a;
+
+    &--gold {
+      top: 60px;
+      background: linear-gradient(90deg, rgba(212, 175, 55, 0.15), rgba(245, 176, 65, 0.1));
+      border-color: rgba(212, 175, 55, 0.3);
+    }
+  }
+
+  &__clasp {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #d4af37, #b8941f);
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__clasp-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #1a1410;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}

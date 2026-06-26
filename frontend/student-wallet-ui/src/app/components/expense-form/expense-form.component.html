@@ -1,0 +1,31 @@
+<div class="expense-form">
+  <div class="expense-form__handle"></div>
+  <h3>{{ isEdit ? 'Edit Expense' : 'Log Expense' }}</h3>
+
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Amount (₹)</mat-label>
+      <input matInput type="number" formControlName="amount" inputmode="decimal" />
+      <span matTextPrefix>₹&nbsp;</span>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="category">
+        <mat-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Description (optional)</mat-label>
+      <input matInput formControlName="description" placeholder="e.g. Mess lunch" />
+    </mat-form-field>
+
+    <div class="expense-form__actions">
+      <button mat-button type="button" (click)="cancel()">Cancel</button>
+      <button mat-flat-button type="submit" class="save-btn" [disabled]="form.invalid || saving">
+        {{ isEdit ? 'Update Expense' : 'Save Expense' }}
+      </button>
+    </div>
+  </form>
+</div>

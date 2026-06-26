@@ -1,0 +1,39 @@
+<div class="sms-import">
+  <div class="sms-import__handle"></div>
+  <div class="sms-import__header">
+    <mat-icon>sms</mat-icon>
+    <h3>Import from SMS / UPI</h3>
+  </div>
+  <p class="sms-import__sub">Paste a debit SMS from your bank or UPI app. We'll auto-detect amount and category.</p>
+
+  <form [formGroup]="form" (ngSubmit)="import()">
+    <textarea
+      formControlName="smsText"
+      class="sms-textarea"
+      rows="4"
+      placeholder="Paste transaction SMS here..."
+    ></textarea>
+
+    <button type="button" mat-button class="sample-btn" (click)="useSample()">
+      Use sample Zomato SMS
+    </button>
+
+    <div class="sms-import__result" *ngIf="result" [class.success]="result.parsed" [class.error]="!result.parsed">
+      <mat-icon>{{ result.parsed ? 'check_circle' : 'error' }}</mat-icon>
+      <div>
+        <p>{{ result.message }}</p>
+        <span *ngIf="result.parsed && result.category">
+          {{ result.category }} · ₹{{ result.amount }}
+        </span>
+      </div>
+    </div>
+
+    <div class="sms-import__actions">
+      <button mat-button type="button" (click)="close()">Cancel</button>
+      <button mat-flat-button type="submit" class="import-btn" [disabled]="form.invalid || importing">
+        <mat-spinner *ngIf="importing" diameter="16"></mat-spinner>
+        <span *ngIf="!importing">Import & Log</span>
+      </button>
+    </div>
+  </form>
+</div>

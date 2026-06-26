@@ -1,0 +1,36 @@
+<div class="expense-list">
+  <div class="expense-empty" *ngIf="expenses.length === 0">
+    <mat-icon>receipt_long</mat-icon>
+    <p>No expenses logged today</p>
+    <span>Tap + to log your first expense</span>
+  </div>
+
+  <div class="expense-item" *ngFor="let expense of expenses">
+    <div class="expense-item__icon">
+      <mat-icon>{{ getIcon(expense.category) }}</mat-icon>
+    </div>
+    <div class="expense-item__details">
+      <span class="expense-item__category">{{ expense.category }}</span>
+      <span class="expense-item__desc" *ngIf="expense.description">{{ expense.description }}</span>
+    </div>
+    <div class="expense-item__right">
+      <span class="expense-item__amount">₹{{ formatAmount(expense.amount) }}</span>
+      <span
+        class="expense-item__badge"
+        [class.better]="expense.verdict === 'Better'"
+        [class.bad]="expense.verdict === 'Bad'"
+        [class.neutral]="expense.verdict === 'Neutral'"
+      >
+        {{ expense.verdict }}
+      </span>
+    </div>
+    <div class="expense-item__actions">
+      <button mat-icon-button (click)="edit.emit(expense)" aria-label="Edit expense">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button class="delete-btn" (click)="delete.emit(expense)" aria-label="Delete expense">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

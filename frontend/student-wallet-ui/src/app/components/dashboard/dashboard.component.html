@@ -1,0 +1,141 @@
+<div class="dashboard" [@fadeSlide]>
+  <header class="dashboard__header">
+    <div class="dashboard__brand">
+      <mat-icon>account_balance_wallet</mat-icon>
+      <span>Student Wallet</span>
+    </div>
+    <div class="dashboard__header-right">
+      <span class="dashboard__user" *ngIf="userName">Hi, {{ userName }}</span>
+      <button mat-icon-button (click)="logout()" aria-label="Logout">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </div>
+  </header>
+
+  <!-- Slot 1: Cash Received -->
+  <section class="slot slot--income">
+    <label class="slot__label">Current Balance</label>
+    <form [formGroup]="budgetForm" class="income-form">
+      <div class="income-input">
+        <span class="rupee-prefix">₹</span>
+        <input
+          type="number"
+          formControlName="income"
+          placeholder="Enter pocket money"
+          class="income-field"
+          inputmode="numeric"
+        />
+      </div>
+      <button
+        mat-stroked-button
+        type="button"
+        class="set-budget-btn"
+        (click)="onSetBudget()"
+        [disabled]="isLoading"
+      >
+        <mat-spinner *ngIf="isLoading" diameter="18"></mat-spinner>
+        <span *ngIf="!isLoading">Set Budget</span>
+      </button>
+    </form>
+  </section>
+
+  <!-- Slot 2: Today's Allowance -->
+  <section class="slot slot--fuel" *ngIf="hasBudget">
+    <div class="fuel-card">
+      <div class="fuel-ring">
+        <svg viewBox="0 0 120 120" class="progress-ring">
+          <circle cx="60" cy="60" r="54" class="progress-ring__bg" />
+          <circle
+            cx="60" cy="60" r="54"
+            class="progress-ring__fill"
+            [style.stroke-dasharray]="progressCircumference"
+            [style.stroke-dashoffset]="progressOffset"
+          />
+        </svg>
+        <div class="fuel-amount" [@countUp]="remainingForToday">
+          <span class="rupee">₹</span>
+          <span class="number">{{ formatIndianNumber(remainingForToday) }}</span>
+        </div>
+      </div>
+      <span class="fuel-label">Today's Safe Spend</span>
+      <span class="fuel-sub">
+        ₹{{ formatIndianNumber(dailyAllowance) }}/day · {{ today | date:'d MMM' }}
+      </span>
+      <span class="fuel-formula" *ngIf="dailyAllowance > 0">
+        Cash received ÷ days in month
+      </span>
+      <span class="fuel-spent" *ngIf="spentToday > 0">
+        Spent today: ₹{{ formatIndianNumber(spentToday) }}
+      </span>
+    </div>
+  </section>
+
+  <!-- Slot 3: Calculator Grid -->
+  <section class="slot slot--calculator" *ngIf="hasBudget">
+    <div class="calculator-grid">
+      <div class="calc-card">
+        <mat-icon>calendar_today</mat-icon>
+        <span class="calc-value" [@countUp]="comingDaysAllowance">
+          ₹{{ formatIndianNumber(comingDaysAllowance) }}
+        </span>
+        <span class="calc-label">Per day for coming days</span>
+      </div>
+      <div class="calc-card">
+        <mat-icon>calendar_month</mat-icon>
+        <span class="calc-value" [@countUp]="monthEndSurplus">
+          ₹{{ formatIndianNumber(monthEndSurplus) }}
+        </span>
+        <span class="calc-label">Left at month end</span>
+      </div>
+      <div class="calc-card highlight">
+        <mat-icon>savings</mat-icon>
+        <span class="calc-value" [@countUp]="potentialSavings">
+          ₹{{ formatIndianNumber(potentialSavings) }}
+        </span>
+        <span class="calc-label">Potential Savings this month</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- What-If Simulator -->
+  <section class="slot" *ngIf="hasBudget">
+    <app-what-if-simulator></app-what-if-simulator>
+  </section>
+
+  <!-- Gamification -->
+  <section class="slot" *ngIf="hasBudget">
+    <app-gamification-panel></app-gamification-panel>
+  </section>
+
+  <!-- Expenses -->
+  <section class="slot slot--expenses" *ngIf="hasBudget">
+    <div class="expenses-header">
+      <h2>Today's Expenses</h2>
+      <span class="expense-count">{{ todayExpenses.length }} logged</span>
+    </div>
+    <app-expense-list
+      [expenses]="todayExpenses"
+      (edit)="editExpense($event)"
+      (delete)="deleteExpense($event)"
+    ></app-expense-list>
+  </section>
+
+  <div class="fab-group" *ngIf="hasBudget">
+    <button
+      mat-mini-fab
+      class="fab-sms"
+      (click)="openSmsImport()"
+      aria-label="Import from SMS"
+    >
+      <mat-icon>sms</mat-icon>
+    </button>
+    <button
+      mat-fab
+      class="fab-add"
+      (click)="openExpenseForm()"
+      aria-label="Add expense"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>

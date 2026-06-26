@@ -1,0 +1,52 @@
+<section class="what-if">
+  <div class="what-if__header">
+    <mat-icon>psychology</mat-icon>
+    <h2>What-If Simulator</h2>
+  </div>
+  <p class="what-if__sub">How would an extra savings goal change your daily budget?</p>
+
+  <form [formGroup]="form" (ngSubmit)="simulate()" class="what-if__form">
+    <div class="what-if__input-row">
+      <span class="rupee">₹</span>
+      <input
+        type="number"
+        formControlName="extraSavings"
+        placeholder="5,000 extra to save"
+        class="what-if__input"
+        [disabled]="disabled"
+        inputmode="numeric"
+      />
+      <button mat-stroked-button type="submit" class="simulate-btn" [disabled]="form.invalid || loading || disabled">
+        <mat-spinner *ngIf="loading" diameter="16"></mat-spinner>
+        <span *ngIf="!loading">Simulate</span>
+      </button>
+    </div>
+  </form>
+
+  <p class="what-if__error" *ngIf="error">{{ error }}</p>
+
+  <div class="what-if__result" *ngIf="result">
+    <div class="budget-shift">
+      <div class="budget-shift__col">
+        <span class="label">Current</span>
+        <span class="value">₹{{ format(result.currentDailyBudget) }}</span>
+      </div>
+      <mat-icon>arrow_forward</mat-icon>
+      <div class="budget-shift__col highlight">
+        <span class="label">Adjusted</span>
+        <span class="value">₹{{ format(result.adjustedDailyBudget) }}</span>
+      </div>
+    </div>
+
+    <p class="reduction-note">
+      Cut ₹{{ format(result.dailyReduction) }}/day for {{ result.daysRemaining }} days to save ₹{{ format(result.extraSavingsGoal) }} extra.
+    </p>
+
+    <ul class="tips-list">
+      <li *ngFor="let tip of result.tips">
+        <mat-icon>lightbulb</mat-icon>
+        <span>{{ tip }}</span>
+      </li>
+    </ul>
+  </div>
+</section>

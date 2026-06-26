@@ -1,0 +1,36 @@
+.expense-form {
+  padding: 0.5rem 1.25rem 2rem;
+  background: #141414;
+
+  &__handle {
+    width: 40px;
+    height: 4px;
+    background: #333;
+    border-radius: 2px;
+    margin: 0 auto 1rem;
+  }
+
+  h3 {
+    margin: 0 0 1.25rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+.save-btn {
+  background: #d4af37 !important;
+  color: #0a0a0a !important;
+  font-weight: 600 !important;
+}

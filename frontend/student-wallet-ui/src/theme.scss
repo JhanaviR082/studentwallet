@@ -1,0 +1,48 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$gold-palette: (
+  50: #faf6e8,
+  100: #f3e9c4,
+  200: #ebdb9d,
+  300: #e3cd76,
+  400: #dcc258,
+  500: #d4af37,
+  600: #c9a030,
+  700: #bb8e27,
+  800: #ad7d1f,
+  900: #965f10,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: rgba(black, 0.87),
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+  )
+);
+
+$student-wallet-primary: mat.define-palette($gold-palette, 500);
+$student-wallet-accent: mat.define-palette($gold-palette, 300);
+$student-wallet-warn: mat.define-palette(mat.$red-palette);
+
+$student-wallet-theme: mat.define-dark-theme((
+  color: (
+    primary: $student-wallet-primary,
+    accent: $student-wallet-accent,
+    warn: $student-wallet-warn,
+  ),
+  typography: mat.define-typography-config($font-family: 'Inter, sans-serif'),
+  density: 0,
+));
+
+@include mat.all-component-themes($student-wallet-theme);
+
+html {
+  @include mat.all-component-densities(-1);
+}
